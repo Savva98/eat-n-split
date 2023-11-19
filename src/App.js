@@ -27,9 +27,8 @@ const initialFriends = [
 export default function App() {
   const [friends, setFriends] = useState(initialFriends);
   const [addFriend, setAddFriend] = useState(false);
-  const [selectFriend, setSelect] = useState(false);
-  const [selectedFriend, setSelectedFriend] = useState([]);
-  console.log(selectedFriend);
+  const [selectedFriend, setSelectedFriend] =
+    useState(null);
 
   function addingFriend(frien) {
     setFriends((friends) => [...friends, frien]);
@@ -39,17 +38,10 @@ export default function App() {
   }
 
   function onSelectFriend(obj) {
-    setSelect(!selectFriend);
-    if (obj.id !== selectedFriend.id && selectedFriend.id) {
-      setSelect((s) => {
-        if (!s) {
-          return !s;
-        }
-        return s;
-      });
-      setSelectedFriend(obj);
-    }
-    setSelectedFriend(obj);
+    setSelectedFriend((selected) =>
+      selected?.id === obj.id ? null : obj
+    );
+    setAddFriend(false);
   }
 
   function onChangeBalance(value) {
@@ -60,8 +52,7 @@ export default function App() {
           : f
       )
     );
-
-    setSelect(!selectFriend);
+    setSelectedFriend(null);
   }
   return (
     <div className="app">
@@ -69,9 +60,10 @@ export default function App() {
         friends={friends}
         onSetAddFriend={onSetFriend}
         onSelectFriend={onSelectFriend}
+        selected={selectedFriend}
       />
 
-      {selectFriend ? (
+      {selectedFriend ? (
         <FormSplitABill
           selectedFriend={selectedFriend}
           onChangeBalance={onChangeBalance}

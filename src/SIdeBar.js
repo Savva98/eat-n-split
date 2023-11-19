@@ -1,13 +1,11 @@
-import { useState } from "react";
-
 import Friends from "./Friends";
 
 export default function SideBar({
   friends,
   onSetAddFriend,
   onSelectFriend,
+  selected,
 }) {
-  const [selected, setSelected] = useState(0);
   return (
     <div className="sidebar">
       <ul>
@@ -15,9 +13,8 @@ export default function SideBar({
           <Friends
             friendsObj={friend}
             key={friend.id}
-            onSelectFriend={onSelectFriend}
             selected={selected}
-            setSelected={setSelected}
+            onSelectFriend={onSelectFriend}
           />
         ))}
       </ul>
