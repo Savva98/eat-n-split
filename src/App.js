@@ -67,6 +67,7 @@ export default function App() {
         <FormSplitABill
           selectedFriend={selectedFriend}
           onChangeBalance={onChangeBalance}
+          key={selectedFriend.id}
         />
       ) : null}
       {addFriend ? (
